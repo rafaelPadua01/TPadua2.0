@@ -30,8 +30,7 @@ Vue.use(IconsPlugin)
 Vue.use(PortalVue)
 //instancia vuetoast
 Vue.use(VueToast);
-//Instancia moment para formatar datas
-Vue.use(require('vue-moment'));
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -64,4 +63,11 @@ Vue.component('comentarios-component', require('./components/Comentarios/Comenta
 
 const app = new Vue({
     el: '#app',
+});
+
+//Instancia moment para formatar datas
+const moment = require('moment')
+require('moment/locale/pt-br')
+Vue.use(require('vue-moment'), {
+    moment
 });
