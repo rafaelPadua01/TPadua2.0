@@ -1,6 +1,6 @@
 <template>
     <!-- Div Navbar --> 
-  <div>
+  <div @onload="checkSupport()">
         <b-navbar toggleable="sm" type="dark" variant="info">
             <b-navbar-brand href="#">Project Name</b-navbar-brand>
            
@@ -177,7 +177,8 @@
                                 <template v-if="c.id === n.id_categoria">
                                 <span>
                                         <p>
-                                            momento da postagem 
+                                            
+                                            <span style="color: gray">{{n.created_at | moment("from" , "now", true)}}</span> 
                                             Em - <a href="#">{{c.nome_categoria}}</a>
                                         </p>
                                     </span>
@@ -491,6 +492,14 @@
             this.listenForChanges();
         },
         methods: {
+            checkSupport(){
+                if(window.Notification){
+                    console.log('Notificações são suportadas');
+                }
+                else{
+                    alert('Notificações não suportadas neste browser ! :(');
+                }
+            },
             listenForChanges()
             {
                 Echo.channel('notify-received')
@@ -499,13 +508,23 @@
                         alert('Web notification is not supported');
                         return;
                     }
-
+             
                     Notification.requestPermission( permission => {
-                        let notification = new Notification('Alerta de nova notícia', {
-                            body: noticias.titulo,
-                            icon: "https://pusher.com/static_logos/320x320.png", //opcional imagem da pagina do pusher
+                        let notification = new Notification(noticias.titulo, {
+                            body: noticias.content.substr(3, 50)+'...',
+                            icon: "https://w0.pngwave.com/png/327/1019/chi-s-sweet-home-cat-hello-kitty-manga-anime-cat-png-clip-art.png",
+                            vibrate: [200, 100, 200], //opcional imagem da pagina do pusher
+                           // requireInteraction: shouldRequireInteraction,
                         });
-a
+
+                               if(window.Notification){
+                    console.log('Notificações são suportadas');
+                }
+                else{
+                    alert('Notificações não suportadas neste browser ! :(');
+                }
+
+
                         //Link para pagiina ao clicar na notificação
                         notification.onclick  = () => {
                             window.open(window.location.href);

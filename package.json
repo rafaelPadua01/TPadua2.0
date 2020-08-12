@@ -50,6 +50,7 @@
         "tiptap-extensions": "^1.29.1",
         "toastr": "^2.1.4",
         "v-markdown-editor": "^1.2.4",
+        "vue-moment": "^4.1.0",
         "vue-toast-notification": "^0.3.0",
         "vue2-editor": "^2.10.2"
     }
