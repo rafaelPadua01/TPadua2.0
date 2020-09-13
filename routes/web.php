@@ -38,6 +38,7 @@ Route::post('/teste/create','NoticiasController@create')->middleware('auth');
 Route::put('/teste/update/{id}', 'NoticiasController@update')->middleware('auth');
 Route::get('/teste/destroy/{id}', 'NoticiasController@destroy')->middleware('auth');
 Route::get('/teste/show/{id}', 'NoticiasController@show');
+Route::get('/teste/ultimas_noticias', 'NoticiasController@lastNews');
 
 //Rotas notificaçoes das notícias
 /*Route::get('/send', function(){

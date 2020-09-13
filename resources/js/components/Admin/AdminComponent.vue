@@ -1,7 +1,7 @@
 <template>
 <!-- Div Navbar --> 
-  <div>
-        <b-navbar toggleable="sm" type="dark" variant="info">
+  <div style="margin-top: -2.3%">
+        <b-navbar toggleable="lg" type="dark" variant="info">
             <b-navbar-brand href="#">Project Name</b-navbar-brand>
            
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -261,7 +261,7 @@
                                 
                             </b-card>
                         </a>
-                        <!-- Card das notícias recebidas -->
+                        <!-- Card das notícias recebidas
                         <a href="#">
                             <b-card
                                 deck
@@ -277,7 +277,9 @@
                                 <b-card-text style="color: #fff">Notícias Recebidas</b-card-text>
                             </b-card>
                         </a>
+                        -->
                         </b-card-group>
+
                     </div>
 
                     <!-- Segundo Grupo Newsletter -->
@@ -300,7 +302,7 @@
                                         </b-card-text>
                                     </b-card>
                                 </a>
-
+                            <!-- 
                             <b-card
                                 border-variant="info"
                                 bg-variant="light" 
@@ -311,13 +313,26 @@
                                 class="text-center">
                                 <b-card-text>Relogio Aqui</b-card-text>
                             </b-card>
-
+                            -->
                         </b-card-group>
                     </div>
                 </b-col>
                 <b-col></b-col>
             </b-row>
-
+            <hr>
+            <b-row>
+                <b-col></b-col>
+                <b-col>
+                    <div>
+                        <b-card-group>
+                            <b-card header="Estatisticas de acesso">
+                                <b-card-text>Aqui vou criar um grafíco de estatica dos acessos a página do sistema</b-card-text>
+                            </b-card>
+                        </b-card-group>
+                    </div>
+                </b-col>
+                <b-col></b-col>
+            </b-row>
             <!--<b-row align-v="end">
                 <b-col style="border: 1px solid #000">1 of 3</b-col>
                 <b-col cols="5" style="border: 1px solid #000">2 of 3 (wider)</b-col>

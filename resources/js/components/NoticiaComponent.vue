@@ -951,8 +951,8 @@ export default
                 })
                 .catch(function(error){
                     Vue.$toast.warning('Algo deu errado', {
-                    message: 'erro = ${error}',
-                    type: 'erro',
+                    message: 'Erro: ${error}, Contate o suporte técnico e informe o erro...',
+                    type: 'warning',
                     position: 'top-right'
                     });
                        //console.log(error)

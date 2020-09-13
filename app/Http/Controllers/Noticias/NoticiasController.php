@@ -101,4 +101,12 @@ class NoticiasController extends Controller
                 ->with(json_encode($noticia), json_encode($img), json_encode($comentarios), json_encode($respostas));
     }
 
+    public function lastNews()
+    {
+        $last_news = Noticias::orderBy('id', 'desc')->limit(4)->get();
+        $categorias = Categorias::all();
+        return view('noticias.last', compact('last_news', 'categorias'))
+            ->with(json_encode($last_news), json_encode($categorias));
+    }
+
 }

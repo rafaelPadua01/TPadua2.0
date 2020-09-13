@@ -1,7 +1,7 @@
 <template>
     <!-- Div Navbar --> 
-  <div @onload="checkSupport()">
-        <b-navbar toggleable="sm" type="dark" variant="info">
+  <div @onload="checkSupport()" style="margin-top: -2.1%">
+        <b-navbar type="dark" variant="info">
             <b-navbar-brand href="#">Project Name</b-navbar-brand>
            
                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -133,13 +133,21 @@
 
                         
                                 <div img-blank v-for="(destaque, key) in n_destaque" :key="key">
+                                    <p class="h1" style="color: #17a2b8"><a v-bind:href="'teste/show/' + destaque.id">{{destaque.titulo}}</a></p>
+                                    <template>
+                                        <span v-html="destaque.content.substr(0, 250) + '...'"></span>    
+                                    </template>
                                     
-                                    
-                                    <p class="h1" style="color: #17a2b8">{{destaque.titulo}}</p>
-                                    <span v-html="destaque.content"></span>
-                                    
-                       
-
+                                    <div v-for="(c, index) in categorias" v-bind:key="index">
+                                        <template v-if="c.id === destaque.id_categoria">
+                                            <span>
+                                                <p>
+                                                    <span style="color: gray">há {{destaque.created_at | moment("from", "now", true)}}</span>
+                                                    Em - <a href="#" >{{c.nome_categoria}}</a>
+                                                </p>
+                                            </span>
+                                        </template>
+                                    </div>
                                 </div>
                             
 
@@ -170,7 +178,7 @@
                             <span><p class="h1" style="color: #17a2b8"><a v-bind:href="'/teste/show/' + n.id">{{n.titulo}}</a></p></span>
                             <br>
                             <template>
-                            <span v-html="n.content.substr(0, 50)" ></span>
+                            <span v-html="n.content.substr(0, 140) + '...'" ></span>
                             </template>
                             <br>
                             <div v-for="(c, key) in categorias" :key="key" style="float: right">
@@ -213,18 +221,18 @@
 
                         <ul style="list-style: none; max-width: 10rem; padding: 0%;">
                             <li  v-for="(u_noticia, key) in u_noticias" :key="key" >
-                                <p class="h5" style="color: #17a2b8"><b><a href="#">{{u_noticia.titulo}}</a></b></p>
+                                <p class="h5" style="color: #17a2b8"><b><a v-bind:href="'/teste/show/' + u_noticia.id">{{u_noticia.titulo}}</a></b></p>
                                 
-                                <span v-html="u_noticia.content.substr(0, 20)"></span>
+                                <span v-html="u_noticia.content.substr(0, 100) + '...'"></span>
                                 <br>
-                                <p><small>Em: {{u_noticia.created_at}}</small></p> 
-                                <hr class="my-4" style="background-color: #17a2b8; max-width: 100%;">
+                                <p style="color: gray"><small>Há: {{u_noticia.created_at | moment("from", "now", true)}}</small></p> 
+                                <hr class="my-4" style="max-width: 100%; width: 100%; background-color: #17a2b8;">
                                
                             </li>
                         </ul>
                         <!--Botão Leia mais Recebe uma fynçao para ler mais notícias-->
                         <div align='center'>
-                         <b-button class="mr-1" size="sm" variant="outline-info">Veja Mais</b-button>
+                         <a type="button" v-bind:href="'/teste/ultimas_noticias'" class="mr-1" size="sm" variant="outline-info">Veja Mais</a>
                          </div>
                     </b-card>    
                     
@@ -245,7 +253,7 @@
                                                 <tbody>
                                                     <td>
                                                        <p class="h5"><a href="#">{{e.nome_evento}}</a></p>
-                                                        <p><small><span v-html="e.descricao_evento.substr(0, 20)"></span></small></p>
+                                                        <p><small><span v-html="e.descricao_evento.substr(0, 100) + '...'"></span></small></p>
                                                         <p style="font-size: 0.8rem"><small><b>Data</b> {{e.data_evento}} <b>Hora:</b> {{e.hora_evento}}</small></p>
                                                     </td>
                                                     <td>
@@ -438,7 +446,7 @@
         <!-- Footer -->
         <b-row>
             <b-col cols="12">
-                <div>
+                <div style="margin-bottom: -2.3%">
                     <b-card bg-variant="info" border-variant="light">
 
                         <b-card-text>
@@ -588,6 +596,7 @@
 </script>
 
 <style>
+    
     .fade-enter-active, .fade-leave-active{
         transition: opacity .5s;
     }

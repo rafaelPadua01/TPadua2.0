@@ -132,8 +132,8 @@
                             <b-card-text>
                                 <p class="h1" align='center' style="color: #17a2b8">{{noticia.titulo}}</p>
                                
-                                <p v-html="noticia.content.substr(0, 50) + '...'" ></p>
-                                <p><small><b>{{noticia.created_at}}</b></small></p>
+                                <p v-html="noticia.content.substr(0, 100) + '...'" ></p>
+                                <p><small style="color: gray">{{noticia.created_at | moment("from", "now")}}<a href="#"> Em - Categoria</a></small></p>
                                  <hr>
                                    
                                  <template v-for="n_img in img" :v-if="n_img.id_noticia === noticia.id" centered>

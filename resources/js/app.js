@@ -45,6 +45,7 @@ Vue.use(VueToast);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('noticia-component', require('./components/NoticiaComponent.vue').default);
 Vue.component('display-noticia-component', require('./components/Noticias/DisplayNoticiaComponent.vue'). default);
+Vue.component('last-news-component', require('./components/Noticias/LastNewsComponent.vue').default);
 Vue.component('welcome-component', require('./components/WelcomeComponent.vue').default);
 Vue.component('admin-component', require('./components/Admin/AdminComponent.vue').default);
 Vue.component('galerianoticias-component', require('./components/GaleriaNoticias/GaleriaNoticiasComponent.vue').default);
@@ -54,6 +55,7 @@ Vue.component('newsletter-component', require('./components/Newsletter/Newslette
 Vue.component('newsletter-assing-component', require('./components/Newsletter/NewsletterAssingComponent.vue').default);
 Vue.component('categorias-component', require('./components/Categorias/CategoriasComponent.vue').default);
 Vue.component('comentarios-component', require('./components/Comentarios/ComentariosComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
