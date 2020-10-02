@@ -50,7 +50,9 @@ Vue.component('welcome-component', require('./components/WelcomeComponent.vue').
 Vue.component('admin-component', require('./components/Admin/AdminComponent.vue').default);
 Vue.component('galerianoticias-component', require('./components/GaleriaNoticias/GaleriaNoticiasComponent.vue').default);
 Vue.component('galeria-img-component', require('./components/GaleriaNoticias/ShowGaleriaImgComponent.vue').default);
+Vue.component('galeria-video-component', require('./components/GaleriaNoticias/ShowGaleriaVideoComponent.vue').default);
 Vue.component('arte-cultura-component', require('./components/ArteCultura/ArteCulturaComponent.vue').default);
+Vue.component('evento-component', require('./components/ArteCultura/EventoComponent.vue').default);
 Vue.component('newsletter-component', require('./components/Newsletter/NewsletterComponent.vue').default);
 Vue.component('newsletter-assing-component', require('./components/Newsletter/NewsletterAssingComponent.vue').default);
 Vue.component('categorias-component', require('./components/Categorias/CategoriasComponent.vue').default);

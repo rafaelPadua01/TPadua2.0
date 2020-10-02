@@ -15,7 +15,7 @@ class ArteCulturaController extends Controller
 
     public function __construct(ArteCultura $arteCultura)
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->arteCultura = $arteCultura;
     }
     public function index()
@@ -78,7 +78,7 @@ class ArteCulturaController extends Controller
     public function update(Request $request, $id)
     {
         $update_evento = $request->all();
-        dd($update_evento);
+        //dd($update_evento);
         $evento = ArteCultura::findOrFail($id);
         $nome_imagem = $request->file('file');
         $user = \Auth::user();
@@ -86,6 +86,12 @@ class ArteCulturaController extends Controller
         dd($update_evento, $user, $nome_imagem);
        
         
+    }
+    public function show($id)
+    {
+        $evento = ArteCultura::findOrFail($id);
+        return view('arteCultura.show', compact('evento'))->with(json_encode($evento));
+
     }
 
 }

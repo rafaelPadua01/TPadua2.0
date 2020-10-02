@@ -72,19 +72,31 @@ Route::get('/galeriaNoticias','UploadImgController@index');
 Route::post('/teste/uploadImg/{id}', 'UploadImgController@upload');
 Route::get('/teste/uploadImg/destroy/{id}', 'UploadImgController@destroy');
 
-
-
 //Rotas da Galeria Notícias de Imagens
 Route::post('teste/galeriaImg/{id}', 'UploadGaleriaController@upload');
 Route::get('teste/galeriaImg/preview/{galeria}', 'UploadGaleriaController@preview');
 Route::get('teste/galeriaImg/destroy/{id}', 'UploadGaleriaController@destroy');
 Route::post('teste/galeriaImg/destroy_galeria/{nome_galeria}', 'UploadGaleriaController@destroy_galeria');
 
+//Rotas de Upload de video
+Route::post('/teste/upload_video/{id}', 'UploadVideoController@upload');
+Route::post('/teste/video_destroy/{id}', 'UploadVideoController@destroy');
+
+
+//Rotas da Galeria de videos
+Route::post('/teste/upload_galeria_video/{id}', 'UploadGaleriaVideoController@upload');
+Route::get('/teste/galeria_video/preview/{video}', 'UploadGaleriaVideoController@preview');
+Route::post('/teste/galeria_video_destroy/{id}', 'UploadGaleriaVideoController@destroy');
+Route::post('/teste/video_galeria_destroy/{id}', 'UploadGaleriaVideoController@destroy_video');
+
+
+
 //Rotas Arte e cultura e eventos
-Route::get('/arte_cultura', 'ArteCulturaController@index');
-Route::post('/arte_cultura/create', 'ArteCulturaController@store');
-Route::post('/arte_cultura/update/{id}', 'ArteCulturaController@update');
-Route::post('/arte_cultura/destroy/{id}', 'ArteCulturaController@destroy');
+Route::get('/arte_cultura', 'ArteCulturaController@index')->middleware('auth');
+Route::post('/arte_cultura/create', 'ArteCulturaController@store')->middleware('auth');
+Route::post('/arte_cultura/update/{id}', 'ArteCulturaController@update')->middleware('auth');
+Route::post('/arte_cultura/destroy/{id}', 'ArteCulturaController@destroy')->middleware('auth');
+Route::get('/arte_cultura/show/{id}', 'ArteCulturaController@show');
 
 //Rotas da NewsLetter
 Route::get('/newsletter', 'NewsletterController@index');

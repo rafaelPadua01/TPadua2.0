@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <!-- Navbar do componente -->
-            <b-navbar toggleable="sm" type="dark" variant="info">
+        <!-- Div Navbar --> 
+  <div style="margin-top: -2.3%">
+        <b-navbar toggleable="lg" type="dark" variant="info">
             <b-navbar-brand href="#">Project Name</b-navbar-brand>
            
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -22,6 +22,69 @@
                     </b-nav-item-dropdown>
                     </b-navbar-nav>
                     
+                    <!-- Navbar dropDown notificações -->
+                    <b-navbar-nav>
+                        <b-nav-item-dropdown centered>
+                        <template v-slot:button-content>
+                            <em><b-icon-heart-fill></b-icon-heart-fill></em>
+                        </template>
+                        <b-dropdown-item v-for="(notification, index) in notifications" :key="index" @click="updateNotifications">
+                            <div align='center' class="mt-3 justify-content-center" v-if="notification.data.comentario">
+                                <p>
+                                    <small>
+                                        <b>Usuario:</b>
+                                        {{notification.data.comentario.nome_user_coment}}
+                                        <b>Email:</b>
+                                        {{notification.data.comentario.email_user_coment}}
+                                        
+                                        <br>
+                                     </small>
+                                </p>
+                                <small v-html="notification.data.comentario.content_coment.substr(3, 50)">
+                               
+                                </small>
+                                <small>
+                                    <b>Enviado em:</b>
+                                        {{notification.created_at}}
+                                        <b>Lida em:</b>
+                                        {{notification.read_at}}
+                                </small>
+                            </div>
+                            <hr>
+                            <div align='center' class="mt-3 justify-content-center" v-if="notification.data.resposta">
+                                <p>
+                                    <small>
+                                        <b>Usuario:</b>
+                                        {{notification.data.resposta.nome_user_coment_reply}}
+                                        <b>Email:</b>
+                                        {{notification.data.resposta.email_user_coment_reply}}
+                                        
+                                        <br>
+                                     </small>
+                                </p>
+                                <small v-html="notification.data.resposta.content_coment_reply.substr(3, 50)">
+                               
+                                </small>
+                                <small>
+                                    <b>Enviado em:</b>
+                                        {{notification.created_at}}
+                                        <b>Lida em:</b>
+                                        {{notification.read_at}}
+                                </small>
+                            </div>
+                            
+                     
+                        </b-dropdown-item>
+                        <div align="center">
+                            <b-button class="mr-1" size="sm" variant="link" @click="destroyNotifications" align="center">
+                                <b-icon-trash></b-icon-trash>
+                                Limpar
+                            </b-button>
+                        </div>
+
+                    
+                    </b-nav-item-dropdown>
+                    </b-navbar-nav>
                     
                      <!-- item nav alinhados a direita -->
                     <b-navbar-nav class="ml-auto">
@@ -114,8 +177,9 @@
         </div>
     </template>
     </b-sidebar>
-        <!-- Fim da navbar -->
     </div>
+    <br>
+
 
     <!-- Conteudo da Página do component -->
     <div class="mt-3">
@@ -587,6 +651,21 @@
                 </b-form>
             </b-modal>
         </div>
+
+    <!-- Footer -->
+        <b-row>
+            <b-col cols="12">
+                <div style="margin-bottom: -2.3%">
+                    <b-card bg-variant="info" border-variant="light">
+
+                        <b-card-text>
+                            <p style="color: #fff" align='center'>Project name - &copy; 2020 </p>
+                        </b-card-text>
+                    </b-card>
+                 </div>
+            </b-col>
+        </b-row>
+    
 </div>
    
     

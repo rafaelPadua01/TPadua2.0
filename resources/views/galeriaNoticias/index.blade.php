@@ -10,6 +10,9 @@
                 galerias="{{$galerias}}"
                 noticias="{{$noticias}}"
                 dir_galerias="{{json_encode($dir_galerias)}}"
+                v-bind:videos="{{ json_encode($videos) }}"
+                dir_videos = "{{ json_encode($dir_videos) }}"
+                v-bind:galeria_videos = "{{ json_encode($galeria_videos) }}"
             >
                 <div class="d-flex justify-content-center">
                     <div class="spinner-grow text-info"  role="status">

@@ -171,29 +171,47 @@
                             <div v-for="(u_img,key) in upload_img" :key="key">
                             
                                 <template v-if="u_img.id_noticia == n.id">
-                                    <img :src="u_img.nome_imagem" :alt="u_img.nome_imagem" style="max-width: 10rem; width: 25rem; float: left">
+                                    <a v-bind:href="'/teste/show/' + n.id">
+                                        <b-img
+                                        :src="u_img.nome_imagem"
+                                        :alt="u_img.nome_image"
+                                        class="responsive"
+                                        style="max-width: 10rem; width: 10rem; float: left; color: #17a2b8;"
+                                        thumbnail
+                                        fluid
+                                        >
+                                        </b-img>
+                                    </a>
+                                    <!--<img :src="u_img.nome_imagem" :alt="u_img.nome_imagem" 
+                                        style="max-width: 10rem; width: 25rem; float: left">-->
                                 </template>
                             </div>
-                        
-                            <span><p class="h1" style="color: #17a2b8"><a v-bind:href="'/teste/show/' + n.id">{{n.titulo}}</a></p></span>
-                            <br>
-                            <template>
-                            <span v-html="n.content.substr(0, 140) + '...'" ></span>
-                            </template>
-                            <br>
-                            <div v-for="(c, key) in categorias" :key="key" style="float: right">
-                                <template v-if="c.id === n.id_categoria">
-                                <span>
-                                        <p>
-                                            
-                                            <span style="color: gray">{{n.created_at | moment("from" , "now", true)}}</span> 
-                                            Em - <a href="#">{{c.nome_categoria}}</a>
+                            <div>
+                                <template style="margin-right: 10%">
+                                    <span>
+                                        <p class="h1" style="color: #17a2b8">
+                                            <a v-bind:href="'/teste/show/' + n.id">{{n.titulo}}</a>
                                         </p>
+                                        <span v-html="n.content.substr(0, 140) + '...'" ></span>
                                     </span>
+                                   
+                                    
                                 </template>
-                            
+
+                                <br>
+                                <div v-for="(c, key) in categorias" :key="key" style="float: right">
+                                    <template v-if="c.id === n.id_categoria">
+                                    <span>
+                                            <p>
+                                                
+                                                <span style="color: gray;">{{n.created_at | moment("from" , "now", true)}}</span> 
+                                                Em - <a href="#">{{c.nome_categoria}}</a>
+                                            </p>
+                                        </span>
+                                    </template>
+                                
+                                </div>
                             </div>
-                            
                         </b-card>
                         
                 </div>
@@ -232,13 +250,14 @@
                         </ul>
                         <!--Botão Leia mais Recebe uma fynçao para ler mais notícias-->
                         <div align='center'>
+                            
                          <a type="button" v-bind:href="'/teste/ultimas_noticias'" class="mr-1" size="sm" variant="outline-info">Veja Mais</a>
                          </div>
                     </b-card>    
                     
                 </div>
 
-                <div class="d-flex">
+                <div class="d-flex" cols="4">
                     <b-card
                         tag="article"
                         style="max-width: 18rem; padding: 0%;"
@@ -249,27 +268,54 @@
                         <ul style="list-style: none; margin-left: -2.5rem;">
                             <li v-for="(e, key) in eventos" :key="key">
                                <table class="table responsive" style="max-width: 2rem;  padding: 0%">
-                                               
+                                              
                                                 <tbody>
+                                                 
                                                     <td>
-                                                       <p class="h5"><a href="#">{{e.nome_evento}}</a></p>
-                                                        <p><small><span v-html="e.descricao_evento.substr(0, 100) + '...'"></span></small></p>
-                                                        <p style="font-size: 0.8rem"><small><b>Data</b> {{e.data_evento}} <b>Hora:</b> {{e.hora_evento}}</small></p>
-                                                    </td>
-                                                    <td>
-                                                         <b-img 
-                                                            :src="e.imagem_evento" 
-                                                            :alt="e.imagem_evento"
-                                                            class="responsive"
-                                                            style="max-width: 4rem; width: 6rem; float: right; color: #17a2b8"
-                                                            thumbnail
-                                                            fluid
-                                                        >
-                                                        </b-img>
+                                                        <template>
+                                                        <p class="h6">
+                                                            <a v-bind:href="'/arte_cultura/show/' + e.id">
+                                                                    <b>{{e.nome_evento}}</b>
+                                                                </a>
+                                                            </p>
+                                                        </template>
+
+                                                        <template>
+                                                            <p><small><span v-html="e.descricao_evento.substr(0, 100) + '...'"></span></small></p>
+                                                            <p style="font-size: 0.8rem"><small><b>Data</b> {{e.data_evento}} <b>Hora:</b> {{e.hora_evento}}</small></p>
+                                                        </template>
                                                         
                                                     </td>
-                                                </tbody>
                                                 
+                                                    <td>
+                                                        
+                                                        <template>
+                                                            <div class='img_events'>
+                                                                <a href="#">
+                                                                    <b-img
+                                                                    :src="e.imagem_evento" 
+                                                                    :alt="e.imagem_evento"
+                                                                    class="responsive"
+                                                                    style="max-width: 8rem; width: 8rem; float: right; color: #17a2b8"
+                                                                    thumbnail
+                                                                    fluid
+                                                                >
+                                                                    </b-img>
+                                                                </a>
+                                                            </div>
+                                                        </template>
+                                                        
+                                                        
+                                                        
+                                                    </td>
+                                                   
+                                                  
+                                                    <td>
+                                                        
+                                                    </td>
+                                                   
+                                                </tbody>
+                                            
                                             </table>
 
                                 
@@ -596,7 +642,16 @@
 </script>
 
 <style>
-    
+    /*Style das images dos eventos */
+    .img_events{
+        transition: transform .2s;
+    }
+    .img_events:hover{
+        -ms-transform: scale(5.0); /* IE 9 */
+        -webkit-transform: scale(5.0); /*Safari 3-8*/
+        -moz-webkit-transform: scale(5.0);
+        transform: scale(5.0);
+    }
     .fade-enter-active, .fade-leave-active{
         transition: opacity .5s;
     }

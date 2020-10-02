@@ -9,6 +9,8 @@ use File;
 use App\Noticias;
 use App\UploadImg;
 use App\UploadGaleria;
+use App\UploadVideo;
+use App\UploadGaleriaVideo;
 use App\User;
 
 class UploadImgController extends Controller
@@ -25,14 +27,18 @@ class UploadImgController extends Controller
         $images = UploadImg::all();
         $user = \Auth::user();
         $galerias = UploadGaleria::all();
-        $diretorios = public_path('galeria_noticias/');
+        $videos = UploadVideo::all();
+        $galeria_videos = UploadGaleriaVideo::all();
+        //$diretorios = public_path('galeria_noticias/');
         $dir_galerias = Storage::allDirectories('public/galeria_noticias/');
+        $dir_videos = Storage::allDirectories('public/video_noticias/');
+        //$galeria_videos = Storage::allDirectories('public/galeria_videos/');
         $noticias = Noticias::all();
 
-        
-        return view('galeriaNoticias.index', compact('images', 'user', 'galerias','dir_galerias', 'noticias'))
+        return view('galeriaNoticias.index', compact('images', 'user', 'galerias','dir_galerias', 'noticias', 
+                    'videos', 'dir_videos', 'galeria_videos'))
             ->with(json_encode($images), json_encode($user), json_encode($galerias), json_encode($noticias),
-                    json_encode($dir_galerias));
+                    json_encode($dir_galerias), json_encode($videos), json_encode($dir_videos), json_encode($galeria_videos));
     }
     public function upload(Request $request, $id)
     {

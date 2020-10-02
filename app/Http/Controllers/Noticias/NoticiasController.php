@@ -34,11 +34,19 @@ class NoticiasController extends Controller
     public function create(Request $request)
     {
        $data = $request->all();
+       $user = \Auth::user()->id;
        $r_noticia = $data;
        try{
            if($r_noticia !== 'null')
            {
-               $noticia = Noticias::create($data);
+               $noticia = Noticias::create([
+                   'id_user' => $user,
+                   'titulo' => $request->titulo,
+                   'fonte' => $request->fonte,
+                   'content' => $request->content,
+                   'destaque' => $request->destaque,
+                   'id_categoria' => $request->id_categoria,
+                ]);
                broadcast(new \App\Events\SendNoticia($noticia));
                return \Response::json($data); 
            }

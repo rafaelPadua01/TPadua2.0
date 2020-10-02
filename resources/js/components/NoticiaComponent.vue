@@ -1,9 +1,8 @@
 <template>
 
-<div>
-    <!-- Div Navbar --> 
-  <div>
-        <b-navbar toggleable="sm" type="dark" variant="info">
+<!-- Div Navbar --> 
+  <div style="margin-top: -2.3%">
+        <b-navbar toggleable="lg" type="dark" variant="info">
             <b-navbar-brand href="#">Project Name</b-navbar-brand>
            
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -24,6 +23,69 @@
                     </b-nav-item-dropdown>
                     </b-navbar-nav>
                     
+                    <!-- Navbar dropDown notificações -->
+                    <b-navbar-nav>
+                        <b-nav-item-dropdown centered>
+                        <template v-slot:button-content>
+                            <em><b-icon-heart-fill></b-icon-heart-fill></em>
+                        </template>
+                        <b-dropdown-item v-for="(notification, index) in notifications" :key="index" @click="updateNotifications">
+                            <div align='center' class="mt-3 justify-content-center" v-if="notification.data.comentario">
+                                <p>
+                                    <small>
+                                        <b>Usuario:</b>
+                                        {{notification.data.comentario.nome_user_coment}}
+                                        <b>Email:</b>
+                                        {{notification.data.comentario.email_user_coment}}
+                                        
+                                        <br>
+                                     </small>
+                                </p>
+                                <small v-html="notification.data.comentario.content_coment.substr(3, 50)">
+                               
+                                </small>
+                                <small>
+                                    <b>Enviado em:</b>
+                                        {{notification.created_at}}
+                                        <b>Lida em:</b>
+                                        {{notification.read_at}}
+                                </small>
+                            </div>
+                            <hr>
+                            <div align='center' class="mt-3 justify-content-center" v-if="notification.data.resposta">
+                                <p>
+                                    <small>
+                                        <b>Usuario:</b>
+                                        {{notification.data.resposta.nome_user_coment_reply}}
+                                        <b>Email:</b>
+                                        {{notification.data.resposta.email_user_coment_reply}}
+                                        
+                                        <br>
+                                     </small>
+                                </p>
+                                <small v-html="notification.data.resposta.content_coment_reply.substr(3, 50)">
+                               
+                                </small>
+                                <small>
+                                    <b>Enviado em:</b>
+                                        {{notification.created_at}}
+                                        <b>Lida em:</b>
+                                        {{notification.read_at}}
+                                </small>
+                            </div>
+                            
+                     
+                        </b-dropdown-item>
+                        <div align="center">
+                            <b-button class="mr-1" size="sm" variant="link" @click="destroyNotifications" align="center">
+                                <b-icon-trash></b-icon-trash>
+                                Limpar
+                            </b-button>
+                        </div>
+
+                    
+                    </b-nav-item-dropdown>
+                    </b-navbar-nav>
                     
                      <!-- item nav alinhados a direita -->
                     <b-navbar-nav class="ml-auto">
@@ -67,7 +129,7 @@
             </li>
            <hr>
            <li>
-               <a href="#" id="menu-link" size="sm">
+               <a href="/categorias" id="menu-link" size="sm">
                     <b-icon-archive size="sm"></b-icon-archive>
                         Categorias
                 </a>
@@ -89,7 +151,12 @@
              </li>   
                
            <hr>
-           <li>Item</li>
+           <li>
+               <a href="/arte_cultura" id="menu-link" size="sm">
+                <b-icon-card-checklist></b-icon-card-checklist>
+                    Arte e Cultura
+                </a>
+            </li>
        </ul>
        
       </div>
@@ -112,7 +179,7 @@
     </template>
     </b-sidebar>
     </div>
-    </div>
+    <br>
   
     <!-- Fim da NavBar -->
     <!-- Inicio da Página -->
@@ -126,10 +193,10 @@
         </div>
      <div class="mt-3">
              <b-button-group>
-                <b-button size="sm" class="mr-1" variant="secondary">
+                <!--<b-button size="sm" class="mr-1" variant="secondary">
                     <b-icon-house-door-fill></b-icon-house-door-fill>
                    Página Incial
-                </b-button>
+                </b-button>-->
                 <b-button v-b-modal.modal-1  size="sm" class="mr-1" variant="info">
                     <b-icon-box-arrow-in-up-left></b-icon-box-arrow-in-up-left>
                      Nova Notícia
@@ -141,16 +208,25 @@
                 <b-button v-b-modal.modal-galeria size="sm" class="mr-1" variant="info">
                     <b-icon-images></b-icon-images>
                     Criar Galeria de Imagem
+                </b-button> 
+                <b-button v-b-modal.modal-upload-video size="sm" class="mr-1" variant="info">
+                    <b-icon-camera-video></b-icon-camera-video>
+                        Upload de Video
+                </b-button>
+                <b-button v-b-modal.modal-galeria-video size="sm" class="mr-1" variant="info">
+                    <b-icon-camera-video-fill></b-icon-camera-video-fill>
+                        Criar galeria de Video
                 </b-button>
             </b-button-group>
     </div>
          <div>
-             
+            <!-- Cadastro fe Notícia -->
             <b-modal id="modal-1" title="Formulário de Cadastro de Notícias"  modal-cancel 
                 cancel-variant="secondary" hide-footer>
              
                 <b-form @submit="create" method="post">
-                <b-form-group
+                
+                <!--<b-form-group
                 id="input-group-1"
                 label="Usuario:"
                 label-for="input-1"
@@ -166,7 +242,7 @@
                     </b-form-select-option>
                 </b-form-select>
                    
-               </b-form-group>
+               </b-form-group> -->
                     <b-form-group
                         id="input-group-2"
                         label="Titulo da Notícia:"
@@ -259,12 +335,14 @@
              </b-form>
         </b-modal>
     </div>
+
      <!-- Modal Form upload de imagens -->
      <div>
          <b-modal id="modal-upload-imagem" title="Upload de imagem" 
             modal-cancel cancel-variant="secondary" hide-footer>
             <b-form @submit="uploadImg" method="post" enctype="multipart/form-data">
-                 <b-form-group
+                
+            <!--    <b-form-group
                 id="input-group-select"
                 label="Usuario:"
                 label-for="input-select"
@@ -281,6 +359,7 @@
                     </b-form-select-option>
                 </b-form-select>
                  </b-form-group>
+            -->
                 <b-form-group
                 id="input-group-2"
                 label="Selecione uma notícia"
@@ -334,7 +413,9 @@
                 label="Nome da Nova Galeria"
                 label-for="input-1"
                 >
-                <input type="text" id="nome_galeria" name="nome_galeria"  placeholder="Nome da galeria" v-model="form.nome_galeria">
+               
+               <!-- <input type="text" id="nome_galeria" name="nome_galeria" 
+                        placeholder="Nome da galeria" v-model="form.nome_galeria"> -->
                
                 <b-form-input
                 id="input-1"
@@ -360,7 +441,7 @@
                     </b-form-select>
                 </b-form-group>
                 <b-form-group 
-                    id = "input-file-group"
+                    id= "input-file-group"
                     label="Selecione os Arquivos de imagem..."
                     label-for="input-file"
                     >
@@ -388,6 +469,119 @@
                         </b-button>
                     </b-button-group>
                 </div>
+            </b-form>
+        </b-modal>
+    </div>
+
+    <!-- Div que carrega a modal para upload de video -->
+    <div>
+        <b-modal id="modal-upload-video" modal-cancel cancel-variant="secondary" hide-footer>
+            <b-form @submit="uploadVideo" method="post" enctype="multipart/form-data">
+                  <b-form-group
+                    id="input-group-2"
+                    label="Selecione uma notícia"
+                    label-for="input-2"
+                    >
+                        <b-form-select id="input-2" v-model="form.id">
+                        <b-form-select-option
+                        v-for="(item, index) in items" 
+                        :key="index"
+                        :value="item.id"
+                        >
+                            {{item.id}}.{{item.titulo}}
+                        </b-form-select-option>
+                    </b-form-select>
+                    
+                </b-form-group>
+                <b-form-group
+                    id="input-group-1"
+                    label="Selecione o video:"
+                    label-for="input-file"
+                >
+                    <input id="nome_video" type="file" name="nome_video" v-on:change="onFileChange" ref="nome_video" :v-model="form.video_file" > 
+
+                </b-form-group>
+
+                <div align="center">
+                    <b-button-group>
+                        <b-button variant="primary" type="submit">
+                            <b-icon-upload></b-icon-upload>
+                                Upload
+                        </b-button>
+                        <b-button variant="warning" type="reset">
+                            <b-icon-brush></b-icon-brush>
+                                Reset
+                        </b-button>
+                    </b-button-group>
+                </div>
+            </b-form>
+        </b-modal>
+    </div>
+
+    <!-- Div que carrega a modal para upload da galeria de videos -->
+    <div>
+        <b-modal id="modal-galeria-video" title="Galeria de videos" modal-cancel cancel-varian="secondary" hide-footer>
+            <b-form @submit="uploadGaleriaVideo" method="post" enctype="multipart/form-data">
+               <!-- <b-form-group
+                    id="input-group-1"
+                    label="Nome da nova galeria:"
+                    label-for="input-1">
+                    
+                        <b-form-input
+                            id="input-1"
+                            v-model="form.nome_galeria"
+                            required
+                            placeholder="nome_nova_galeria"
+                        >
+                        </b-form-input>
+                    </b-form-group>-->
+
+                    <b-form-group
+                        id="input-group-select"
+                        label="Selecione uma notícia"
+                        label-for="input-noticia">
+                        <b-form-select id="input-noticia" v-model="form.id">
+                            <b-form-select-option
+                                v-for="(item, index) in items"
+                                :key="index" 
+                                :value="item.id"
+                                
+                            >
+                                {{item.id}}.{{item.titulo}}
+                            </b-form-select-option>
+                        </b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                        id="input-file-group"
+                        label="Selecione um arquivo"
+                        label-for="input-file">
+                        <input
+                        id="input-file"
+                        name="files[]"
+                        type="file"
+                        :v-model="form.files" 
+                        v-on:change="handleFilesChange()"
+                        ref="files"
+                        multiple="multiple" 
+                        :file-name-formatter="formatNames"
+                         >
+
+                    </b-form-group>
+
+                <div align="center">
+                    <b-button-group>
+                        <b-button variant="primary" type="submit">
+                            <b-icon-upload></b-icon-upload>
+                                Upload
+                        </b-button>
+                        <b-button variant="warning" type="reset">
+                            <b-icon-brush></b-icon-brush>
+                                Reset
+                        </b-button>
+                    </b-button-group>
+                </div>
+                     
             </b-form>
         </b-modal>
     </div>
@@ -433,6 +627,7 @@
                 
             </b-table>
            <div>
+
           <!-- Modal que carrega o form de edição
                 Fora do botão para não causar bug's -->
             <b-modal :id="infoModal.id" :title="infoModal.title" hide-footer>
@@ -609,6 +804,22 @@
                 </b-pagination>
             </div>
          </div>
+
+         
+     <!-- Footer -->
+        <b-row>
+            <b-col cols="12">
+                <div style="margin-bottom: -2.3%">
+                    <b-card bg-variant="info" border-variant="light">
+
+                        <b-card-text>
+                            <p style="color: #fff" align='center'>Project name - &copy; 2020 </p>
+                        </b-card-text>
+                    </b-card>
+                 </div>
+            </b-col>
+        </b-row>
+
     </div>
 </template>
 
@@ -635,6 +846,7 @@ export default
                     file: '',
                     nome_galeria: '',
                     files: '',
+                    video_file: '',
                 },
                 //cria uma variavel fitro com atributos
                 filters: {
@@ -961,6 +1173,79 @@ export default
             handleFilesChange(){
                 this.files = this.$refs.files.files;
             },
+            uploadVideo(e){
+                e.preventDefault();
+                let currentObj = this;
+                let id = this.form.id;
+
+                const config= {
+                    headers:{ 
+                        'content-type' : 'multipart/form-data'
+                    }
+                }
+
+                let formData = new FormData();
+                formData.append('file', this.file);
+
+                axios.post(`/teste/upload_video/${id}`, formData, config,{
+                    id: this.form.id, file: this.form.file
+                })
+                .then(function(response){
+                    Vue.$toast.success('Upload de video completo...',{
+                        message: 'Upload de video relizado com sucesso...',
+                        type: 'success',
+                        position: 'top-right',
+                    });
+                        //console.log('success');
+                        //location.reload();
+                })
+                .catch(function(error){
+                    Vue.$toast.warning('Erro no upload do video', {
+                        message: 'erro no upload do video, tente novamente em instantes ou contate o suporte técnico',
+                        type: 'warning',
+                        position: 'top-right',
+                    });
+                });
+            },
+            uploadGaleriaVideo(e){
+                e.preventDefault();
+                let currentObj = this;
+                let id = this.form.id
+
+                const config = {
+                    headers: {
+                        'content-type' : 'multipart/form-data'
+                    }
+                }
+
+                let formData = new FormData();
+                for(var i = 0; i < this.files.length; i++)
+                {
+                    let file = this.files[i];
+                    formData.append('files[' + i + ']', file);    
+
+                }
+
+                axios.post(`/teste/upload_galeria_video/${id}`, formData, config, {
+                    id: this.form.id, file: this.form.files
+                })
+                .then(function(response){
+                    Vue.$toast.success('upload de videos realizado com sucesso',{
+                        message: 'O upload dos videos foi realizado com sucesso',
+                        type: 'success',
+                        position: 'top-right',
+                    });
+                    
+                })
+                .catch(function(error){
+                    Vue.$toast.warning('falha no upload dos videos',{
+                        message: 'Erro no upload dos videos, contate o suporte técnico...',
+                        type: 'warning',
+                        position: 'top-right',
+                    });
+                })
+
+            }
 
         },
         
@@ -968,7 +1253,7 @@ export default
            
             this.items = JSON.parse(this.noticias);
             this.items_categoria = JSON.parse(this.categorias);
-            this.auth_user = JSON.parse(this.user);
+            this.user = JSON.parse(this.user);
            
     }
         
